@@ -117,3 +117,5 @@ fs.unlink('example2.txt', (err) => {
   else
     console.log('File has been successfully deleted');
 });
+
+// file system module - phase 2
