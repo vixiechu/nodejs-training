@@ -12,7 +12,7 @@ The comments in the code are just things I've written whilst learning to aid in 
 
 Compiler: `Visual Studio Code`
 
-`node version: v12.4.0` 
+node version: `v12.4.0` 
 
 Working directory - `nodejs-training`
 
