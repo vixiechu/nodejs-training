@@ -191,4 +191,11 @@ readStream.on('data', (chunk) => {
   writeStream.write(chunk); // move chunk to new file using writeStream
 });
 
-// Why use streams?
+// WHY USE STREAMS?
+// large text files - file size larger than buffer error will occur
+// a stream uses buffer but not full one - very small buffer used
+// this allows us to read file in chunks - not all at once - below code
+const readStream2 = fs.createReadStream('./largefile.txt', 'utf-8');
+readStream2.on('data', (chunk) => {
+  console.log(chunk);
+});
