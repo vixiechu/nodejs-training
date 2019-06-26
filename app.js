@@ -75,47 +75,106 @@
 //    console.log('That is correct!');
 // });
 
-// file system module - file management capabilities 
+// file system module - working with files
 // comment them out in stages
+// const fs = require('fs');
+
+// // create a file - stage 1 
+// fs.writeFile('example.txt', "Example file creation text for learning", (err)=>{
+//    if (err)
+//    console.log(err);
+//    else{
+//    console.log('File successfully created!');
+//   fs.readFile('example.txt', 'utf-8', (err, file) => {
+//      if(err)
+//        console.log(err);
+//      else
+//       console.log(file);
+//   });
+// }
+// });
+
+// // rename a file - stage 2
+// fs.rename('example.txt', 'example2.txt', (err) => {
+//   if (err)
+//     console.log(err);
+//   else
+//     console.log('File has been renamed successfully');
+// });
+
+// // append data to file - stage 3
+// fs.appendFile('example2.txt', 'information that is appended', (err) => {
+//   if (err)
+//     console.log(err);
+//   else
+//     console.log('Data successfully appended within file');
+// });
+
+// // delete a file - stage 4
+// fs.unlink('example2.txt', (err) => {
+//   if (err)
+//     console.log(err);
+//   else
+//     console.log('File has been successfully deleted');
+// });
+
+// file system module - phase 2 - working with folders
 const fs = require('fs');
 
-// create a file - stage 1 
-fs.writeFile('example.txt', "Example file creation text for learning", (err)=>{
-   if (err)
-   console.log(err);
-   else{
-   console.log('File successfully created!');
-  fs.readFile('example.txt', 'utf-8', (err, file) => {
-     if(err)
-       console.log(err);
-     else
-      console.log(file);
-  });
-}
-});
+// create a folder
+fs.mkdir('tutorial', (err) => {
+      if (err)
+        console.log(err);
+      else {
+        console.log('Folder Successfully created');
+      }
+    });
 
-// rename a file - stage 2
-fs.rename('example.txt', 'example2.txt', (err) => {
+// delete a folder (empty)
+fs.rmdir('tutorial', (err) => {
   if (err)
     console.log(err);
-  else
-    console.log('File has been renamed successfully');
+  else {
+    console.log('Folder has been successfully deleted');
+  }
 });
 
-// append data to file - stage 3
-fs.appendFile('example2.txt', 'information that is appended', (err) => {
+// add file to directory
+fs.writeFile('./tutorial/newFile.txt', 'some newly required data', (err) => {
   if (err)
     console.log(err);
-  else
-    console.log('Data successfully appended within file');
+  else {
+    console.log('File successfully created in tutorial folder');
+  }
 });
 
-// delete a file - stage 4
-fs.unlink('example2.txt', (err) => {
+// delete a folder (containing file)
+fs.unlink('./tutorial/newFile.txt', (err) => {
   if (err)
     console.log(err);
-  else
-    console.log('File has been successfully deleted');
+  else {
+    fs.rmdir('tutorial', (err) => {
+      if (err)
+        console.log(err);
+      else {
+        console.log('Folder has been successfully deleted');
+      }
+    });
+  }
 });
-
-// file system module - phase 2
+// delete folder with multiple files - delete each file first
+fs.readdir('testFolder', (err, files) => {
+  if (err)
+    console.log(err);
+  else {
+      for(let file of files){
+        fs.unlink('./testFolder/' + file, (err) => {
+          if(err)
+            console.log(err);
+            else{
+              console.log('File successfully deleted');
+            }
+        })
+      }
+  }
+});
