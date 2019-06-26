@@ -2,7 +2,7 @@
 // console.log(tutorial);
 
 
-// // Extend using EventEmitter class
+// // EVENTEMITTER CLASS - EXTEND USING
 // const EventEmitter = require('events');
 // const eventEmitter = new EventEmitter();
 
@@ -38,7 +38,7 @@
 // vix.emit('name'); // executed first
 // morrigan.emit('name'); // executed second
 
-// //readline Module - interactive terminal quiz
+// // READLINE MODULE - Interactive Terminal!
 
 // const readline = require('readline');
 // const rl = readline.createInterface({  
@@ -75,7 +75,7 @@
 //    console.log('That is correct!');
 // });
 
-// file system module - working with files
+// FILE SYSTEM MODULE - WORKING WITH FILES
 // comment them out in stages
 // const fs = require('fs');
 
@@ -118,63 +118,77 @@
 //     console.log('File has been successfully deleted');
 // });
 
-// file system module - phase 2 - working with folders
+// // FILE SYSTEM MODULE - PHASE 2 - WORKING WITH FOLDERS
+// const fs = require('fs');
+
+// // create a folder
+// fs.mkdir('tutorial', (err) => {
+//       if (err)
+//         console.log(err);
+//       else {
+//         console.log('Folder Successfully created');
+//       }
+//     });
+
+// // delete a folder (empty)
+// fs.rmdir('tutorial', (err) => {
+//   if (err)
+//     console.log(err);
+//   else {
+//     console.log('Folder has been successfully deleted');
+//   }
+// });
+
+// // add file to directory
+// fs.writeFile('./tutorial/newFile.txt', 'some newly required data', (err) => {
+//   if (err)
+//     console.log(err);
+//   else {
+//     console.log('File successfully created in tutorial folder');
+//   }
+// });
+
+// // delete a folder (containing file)
+// fs.unlink('./tutorial/newFile.txt', (err) => {
+//   if (err)
+//     console.log(err);
+//   else {
+//     fs.rmdir('tutorial', (err) => {
+//       if (err)
+//         console.log(err);
+//       else {
+//         console.log('Folder has been successfully deleted');
+//       }
+//     });
+//   }
+// });
+
+// // delete folder with multiple files - delete each file first
+// fs.readdir('testFolder', (err, files) => {
+//   if (err)
+//     console.log(err);
+//   else {
+//       for(let file of files){
+//         fs.unlink('./testFolder/' + file, (err) => {
+//           if(err)
+//             console.log(err);
+//             else{
+//               console.log('File successfully deleted');
+//             }
+//         })
+//       }
+//   }
+// });
+
+// WORKING WITH READABLE & WRITABLE STREAMS
 const fs = require('fs');
 
-// create a folder
-fs.mkdir('tutorial', (err) => {
-      if (err)
-        console.log(err);
-      else {
-        console.log('Folder Successfully created');
-      }
-    });
+// create readable stream
+const readStream = fs.createReadStream('./example.txt', 'utf-8');
+const writeStream = fs.createWriteStream('example2.txt');
 
-// delete a folder (empty)
-fs.rmdir('tutorial', (err) => {
-  if (err)
-    console.log(err);
-  else {
-    console.log('Folder has been successfully deleted');
-  }
+readStream.on('data', (chunk) => {
+  writeStream.write(chunk); // move chunk to new file using writeStream
 });
 
-// add file to directory
-fs.writeFile('./tutorial/newFile.txt', 'some newly required data', (err) => {
-  if (err)
-    console.log(err);
-  else {
-    console.log('File successfully created in tutorial folder');
-  }
-});
-
-// delete a folder (containing file)
-fs.unlink('./tutorial/newFile.txt', (err) => {
-  if (err)
-    console.log(err);
-  else {
-    fs.rmdir('tutorial', (err) => {
-      if (err)
-        console.log(err);
-      else {
-        console.log('Folder has been successfully deleted');
-      }
-    });
-  }
-});
-// delete folder with multiple files - delete each file first
-fs.readdir('testFolder', (err, files) => {
-  if (err)
-    console.log(err);
-  else {
-      for(let file of files){
-        fs.unlink('./testFolder/' + file, (err) => {
-          if(err)
-            console.log(err);
-            else{
-              console.log('File successfully deleted');
-            }
-        })
-      }
-  }
-});
+// Why use streams?
